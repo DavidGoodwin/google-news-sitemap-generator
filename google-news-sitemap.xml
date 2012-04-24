@@ -1,0 +1,8 @@
+If you can still read this text then complete the steps below:
+
+1. Move me to the root directory of your blog (i.e. http://www.blogname.com/google-news-sitemap.xml)
+2. CHMOD me to 777 so that I am writeable
+2. Save/publish/delete a post to generate the sitemap.
+3. If none of the above work, post your issue here: 
+http://wordpress.org/extend/plugins/google-news-sitemap-generator/
+
