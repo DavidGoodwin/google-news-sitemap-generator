@@ -157,8 +157,8 @@ function write_google_news_sitemap()
 	//Limit to last 2 days, 50,000 items					
 	$rows = $wpdb->get_results("SELECT ID, post_date_gmt, post_title
 						FROM $wpdb->posts 
-						WHERE post_status='publish' 
-						AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
+                        WHERE post_status='publish' 
+                        AND post_date_gmt >= '" . date('Y-m-d H:i:s', strtotime('2 days ago')) . "'
 						$includeMe
 						ORDER BY post_date_gmt DESC
 						LIMIT 0, 50000");	
