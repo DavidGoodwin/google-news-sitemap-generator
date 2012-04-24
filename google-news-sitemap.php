@@ -201,7 +201,7 @@ function write_google_news_sitemap()
 	$xmlOutput.= "</urlset>\n";
 	$xmlOutput.= "<!-- Last build time: ".date("F j, Y, g:i a")."-->";
 	
-	$xmlFile = "../google-news-sitemap.xml";
+	$xmlFile = ABSPATH . "/google-news-sitemap.xml";
 	$fp = fopen($xmlFile, "w+"); // open the cache file "google-news-sitemap.xml" for writing
 	fwrite($fp, $xmlOutput); // save the contents of output buffer to the file
 	fclose($fp); // close the file
