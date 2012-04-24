@@ -47,13 +47,18 @@ Release History:
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+
+/**
+ * @return array of strings (Categories) for a post.
+ * @param int $newsID
+ */
 function get_category_keywords($newsID)
 {
 	global $wpdb;
-	
-	//Check for new >2.3 Wordpress taxonomy	
-	if (function_exists("get_taxonomy") && function_exists("get_terms"))
-		{
+    $data = array();
+
+    //Don't bother supporting wordpress < 2.3 any longer.
+    
 			//Get categoy names
 			$categories = $wpdb->get_results("
 					SELECT $wpdb->terms.name FROM $wpdb->term_relationships,  $wpdb->term_taxonomy,  $wpdb->terms
@@ -64,12 +69,12 @@ function get_category_keywords($newsID)
 				$i = 0;
 				$categoryKeywords = "";
 				foreach ($categories as $category)
-				{
-					if ($i>0){$categoryKeywords.= ", ";} //Comma seperator
-					$categoryKeywords.= $category->name; //ammed string
-					$i++;
+                {
+                    $data[] = $category->name;
 				}
 				
+	if (get_option('googlenewssitemap_tagkeywords') == 'on')
+	{
 			//Get tags				
 			$tags = $wpdb->get_results("
 					SELECT $wpdb->terms.name FROM $wpdb->term_relationships,  $wpdb->term_taxonomy,  $wpdb->terms
@@ -77,42 +82,25 @@ function get_category_keywords($newsID)
 					AND $wpdb->term_taxonomy.term_id =  $wpdb->terms.term_id
 					AND $wpdb->term_relationships.object_id = $newsID
 					AND $wpdb->term_taxonomy.taxonomy = 'post_tag'");
-				$i = 0;
-				$tagKeywords = "";
 				foreach ($tags as $tag)
 				{
-					if ($i>0){$tagKeywords.= ", ";} //Comma seperator
-					$tagKeywords.= $tag->name; //ammed string
-					$i++;
+					$data[] = $tag->name;
 				}
-				
+	    }			
 
-		}
-		
-	//Old Wordpress database <2.3
-	else
-		{
-			$categories = $wpdb->get_results("SELECT category_id FROM $wpdb->post2cat WHERE post_id=$newsID");
-			$i = 0;
-			$categoryKeywords = "";
-			foreach ($categories as $category)
-			{
-				if ($i>0){$categoryKeywords.= ", ";} //Comma seperator
-				$categoryKeywords.= get_catname($category->category_id); //ammed string
-				$i++;
-			}
-		}
-	
-	if (get_option('googlenewssitemap_tagkeywords') == 'on')
-	{
-		if($tagKeywords!=NULL)
-		{
-			$categoryKeywords = $categoryKeywords.', '.$tagKeywords; //IF tags are included 
-		}
-	} 
-	
-	 return $categoryKeywords; //Return post category names as keywords
+     return implode(', ', $data);	
 }
+
+/**
+ * @param string $string
+ * @return string - html escaped string (UTF-8, with quote marks encoded, no double encoding)
+ * @see htmlentities()
+ */
+function _escape_html_stuff($string) {
+    $string = htmlentities($string, ENT_QUOTES, 'UTF-8', false);
+    return $string;
+}
+
 
 function write_google_news_sitemap() 
 {
@@ -168,29 +156,29 @@ function write_google_news_sitemap()
 	foreach($rows as $row){
 		$xmlOutput.= "\t<url>\n";
 		$xmlOutput.= "\t\t<loc>";
-		$xmlOutput.= get_permalink($row->ID);
+		$xmlOutput.= _escape_html_stuff(get_permalink($row->ID));
 		$xmlOutput.= "</loc>\n";
 		$xmlOutput.= "\t\t<n:news>\n";
 		
 		$xmlOutput.= "\t\t\t<n:publication>\n";
 		$xmlOutput.= "\t\t\t\t<n:name>";
-		$xmlOutput.= htmlspecialchars(get_option('blogname'));
+		$xmlOutput.= _escape_html_stuff(get_option('blogname'));
 		$xmlOutput.= "</n:name>\n";
 		$xmlOutput.= "\t\t\t\t<n:language>";
-		$xmlOutput.= get_option('rss_language');
+		$xmlOutput.= _escape_html_stuff(get_option('rss_language'));
 		$xmlOutput.= "</n:language>\n";
 		$xmlOutput.= "\t\t\t</n:publication>\n";
 		$xmlOutput.= "\t\t\t<n:publication_date>";
-		$thedate = substr($row->post_date_gmt, 0, 10);
-		$xmlOutput.= $thedate;
+		$thedate = _escape_html_stuff(substr($row->post_date_gmt, 0, 10));
+		$xmlOutput.= _escape_html_stuff($thedate);
 		$xmlOutput.= "</n:publication_date>\n";
 		$xmlOutput.= "\t\t\t<n:title>";
-		$xmlOutput.= htmlspecialchars($row->post_title);
+		$xmlOutput.= _escape_html_stuff($row->post_title);
 		$xmlOutput.= "</n:title>\n";
 		$xmlOutput.= "\t\t\t<n:keywords>";
 		
 		//Use the categories for keywords
-		$xmlOutput.= get_category_keywords($row->ID);
+		$xmlOutput.= _escape_html_stuff(get_category_keywords($row->ID));
 		
 		$xmlOutput.= "</n:keywords>\n"; 
 		$xmlOutput.= "\t\t</n:news>\n";
