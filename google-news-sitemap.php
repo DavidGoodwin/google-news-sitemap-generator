@@ -1,4 +1,4 @@
-<?
+<?php
 /* 
 Plugin Name: Google News Sitemap
 Plugin URI: http://www.southcoastwebsites.co.uk/wordpress/
