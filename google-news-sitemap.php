@@ -231,7 +231,7 @@ else  //Friendly error message :)
 	2. Activate the plugin through the 'Plugins' menu in WordPress<br />
 	3. Move the file "google-news-sitemap.xml" into your blog root directory and CHMOD to 777 so it is writable<br />
 	4. Save/publish/delete a post to generate the sitemap</p>
-	<?
+	<?php
 }
 //
 // Admin panel options.... //
