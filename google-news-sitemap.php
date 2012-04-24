@@ -2,18 +2,19 @@
 /* 
 Plugin Name: Google News Sitemap
 Plugin URI: http://www.southcoastwebsites.co.uk/wordpress/
-Version: v1.5
-Author: <a href="http://www.southcoastwebsites.co.uk/wordpress/">Chris Jinks</a>
+Plugin URI: http://github.com/palepurple/google-news-sitemap-generator
+Version: v2.0
+Author: <a href="http://www.southcoastwebsites.co.uk/wordpress/">Chris Jinks</a> and David Goodwin (github.com/palepurple)
 Description: Basic XML sitemap generator for submission to Google News 
 
 
 Installation:
 ==============================================================================
+    0. Read README.md
 	1. Upload `google-news-sitemap-generator` directory to the `/wp-content/plugins/` directory
 	2. Activate the plugin through the 'Plugins' menu in WordPress
 	3. Move the file "google-news-sitemap.xml" into your blog root directory and CHMOD to 777 so it is writable
 	4. Save/publish/delete a post to generate the sitemap
-
 
 Release History:
 ==============================================================================
@@ -24,7 +25,7 @@ Release History:
 	2009-08-30		v1.3.1		Addition of XML version/encoding tag to beginning of sitemap
 	2009-11-11		v1.4		Update to new Google News Sitemap format
 	2010-03-13		v1.5		Update to new Google News Sitemap format
-
+    2012-04-24      v2.0        Fixes (combination of patches from wp forum, and my own stuff - see README.md)
  
 */
 
@@ -49,7 +50,7 @@ Release History:
 
 
 /**
- * @return string - list of categories for a post, comma separated.
+ * @return string - categories for a post, comma separated.
  * @param int $newsID
  */
 function get_category_keywords($newsID)
