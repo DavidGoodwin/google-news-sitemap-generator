@@ -1,5 +1,8 @@
 (Original readme.txt file - see http://plugins.svn.wordpress.org/google-news-sitemap-generator/trunk/readme.txt )
 
+You should read README.md too.
+
+
 === Google News Sitemap Generator ===
 
 Contributors: Chris Jinks, David Stansbury
@@ -33,3 +36,4 @@ This section describes how to install the plugin and get it working.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Move the file "google-news-sitemap.xml" into your blog root directory and CHMOD to 777 so it is writable
 4. Save/publish/delete a post to generate the sitemap
+5. Read README.md
