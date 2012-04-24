@@ -210,7 +210,8 @@ function write_google_news_sitemap()
 
 if(function_exists('add_action')) //Stop error when directly accessing the PHP file
 {
-	add_action('publish_post', 'write_google_news_sitemap');
+    add_action('publish_post', 'write_google_news_sitemap');
+    add_action('wp_insert_post', 'write_google_news_sitemap');
 	add_action('save_post', 'write_google_news_sitemap');
 	add_action('delete_post', 'write_google_news_sitemap');
 	add_action('transition_post_status', 'write_google_news_sitemap',10, 3); //Future scheduled post action fix
