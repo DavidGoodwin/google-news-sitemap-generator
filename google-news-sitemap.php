@@ -49,14 +49,14 @@ Release History:
 
 
 /**
- * @return array of strings (Categories) for a post.
+ * @return string - list of categories for a post, comma separated.
  * @param int $newsID
  */
 function get_category_keywords($newsID)
 {
 	global $wpdb;
     $data = array();
-
+    $newsID = (int) $newsID;
     //Don't bother supporting wordpress < 2.3 any longer.
     
 			//Get categoy names
@@ -169,11 +169,10 @@ function write_google_news_sitemap()
 		$xmlOutput.= "</n:language>\n";
 		$xmlOutput.= "\t\t\t</n:publication>\n";
 		$xmlOutput.= "\t\t\t<n:publication_date>";
-		$thedate = _escape_html_stuff(substr($row->post_date_gmt, 0, 10));
-		$xmlOutput.= _escape_html_stuff($thedate);
+		$xmlOutput.= _escape_html_stuff(substr($row->post_date_gmt, 0, 10));
 		$xmlOutput.= "</n:publication_date>\n";
 		$xmlOutput.= "\t\t\t<n:title>";
-		$xmlOutput.= _escape_html_stuff($row->post_title);
+		$xmlOutput.= _escape_html_stuff(strip_tags($row->post_title));
 		$xmlOutput.= "</n:title>\n";
 		$xmlOutput.= "\t\t\t<n:keywords>";
 		
