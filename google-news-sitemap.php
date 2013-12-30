@@ -1,10 +1,9 @@
 <?php
 /*
-  Plugin Name: Google News Sitemap
-  Plugin URI: http://www.southcoastwebsites.co.uk/wordpress/
+  Plugin Name: Google News Sitemap (PP)
   Plugin URI: http://github.com/palepurple/google-news-sitemap-generator
   Version: v2.0
-  Author: <a href="http://www.southcoastwebsites.co.uk/wordpress/">Chris Jinks</a> and David Goodwin (http://www.palepurple.co.uk)
+  Author: <a href="http://www.southcoastwebsites.co.uk/wordpress/">Chris Jinks</a> and <a href="http://www.palepurple.co.uk">Pale Purple Ltd</a>
   Description: Basic XML sitemap generator for submission to Google News
 
 
@@ -25,7 +24,7 @@
   2009-08-30		v1.3.1		Addition of XML version/encoding tag to beginning of sitemap
   2009-11-11		v1.4		Update to new Google News Sitemap format
   2010-03-13		v1.5		Update to new Google News Sitemap format
-  2012-04-24                                 v2.0                              Fixes (combination of patches from wp forum, and my own stuff - see README.md)
+  2012-04-24		v2.0		Performance/scalability fixes (combination of patches from wp forum, and my own stuff - see README.md)
 
  */
 
@@ -248,11 +247,8 @@ function googlenewssitemap_options()
                 <h3 class="hndle">Information</h3>
                 <div style="text-decoration:none; padding:10px">
 
-                    <div style="width:180px; text-align:center; float:right; font-size:10px; font-weight:bold">
-                        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=396299">
-                            <img src="https://www.paypal.com/en_GB/i/btn/btn_donateCC_LG.gif" border="0" style="padding-bottom:10px" /></a><br />
-                        Please donate to keep this plugin alive and for future updates! Thanks! :)
-                    </div>
+                    <a href="https://github.com/palepurple/google-news-sitemap-generator">GitHub Page for PalePurple's fork of this plugin</a>
+                    <br/>
 
                     <a href="http://wordpress.org/extend/plugins/google-news-sitemap-generator/" style="text-decoration:none" target="_blank">Google News Sitemap Generator homepage</a> <small>- Report a bug or suggest a feature</small><br /><br />
 
@@ -261,7 +257,9 @@ function googlenewssitemap_options()
                     <a href="http://www.google.com/support/news_pub/bin/answer.py?answer=74288&topic=11666" style="text-decoration:none" target="_blank">Google News Sitemap Guidelines</a> <small>- Detailed outline of sitemaps specification</small><br />
                     <br />
 
-                    <a href="http://www.southcoastwebsites.co.uk/wordpress/" style="text-decoration:none" target="_blank">Plugin developer page</a> <small>- More information about the developer of this plugin</small><br />
+                    Original Developer of this plugin - <a href="http://www.southcoastwebsites.co.uk/wordpress/" target="_blank">Plugin developer page</a> (Page appears defunct as of 2013/12/30)
+
+
 
                 </div>
             </div>
