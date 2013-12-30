@@ -85,11 +85,11 @@ function get_category_keywords($newsID)
 /**
  * @param string $string
  * @return string - html escaped string (UTF-8, with quote marks encoded, no double encoding)
- * @see htmlentities()
  */
 function _escape_html_stuff($string)
 {
-    $string = htmlentities($string, ENT_QUOTES, 'UTF-8', false);
+    // http://stackoverflow.com/questions/2822774/php-is-htmlentities-sufficient-for-creating-xml-safe-values
+    $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8', false);
     return $string;
 }
 
