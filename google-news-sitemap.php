@@ -140,6 +140,12 @@ function write_google_news_sitemap()
 						LIMIT 0, 50000");
 
 
+    $language = 'en';
+    // 2013/12/30 - it looks like wordpress isn't using/storing this any longer. Perhaps it's moved to a per-post setting?
+    $tmp = get_option('rss_language');
+    if(!empty($tmp)) {
+        $language = $tmp;
+    }
     // Output sitemap data
     foreach ($rows as $row) {
         $xmlOutput.= "\t<url>\n";
@@ -152,9 +158,7 @@ function write_google_news_sitemap()
         $xmlOutput.= "\t\t\t\t<n:name>";
         $xmlOutput.= _escape_html_stuff(get_option('blogname'));
         $xmlOutput.= "</n:name>\n";
-        $xmlOutput.= "\t\t\t\t<n:language>";
-        $xmlOutput.= _escape_html_stuff(get_option('rss_language'));
-        $xmlOutput.= "</n:language>\n";
+        $xmlOutput.= "\t\t\t\t<n:language>$language</n:language>\n";
         $xmlOutput.= "\t\t\t</n:publication>\n";
         $xmlOutput.= "\t\t\t<n:publication_date>";
         $xmlOutput.= _escape_html_stuff(substr($row->post_date_gmt, 0, 10));
